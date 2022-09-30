@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet href="http://moise.sourceforge.net/xml/os.xsl" type="text/xsl" ?>
+
+<organisational-specification
+    id="coffers"
+    os-version="0.8"
+
+    xmlns='http://moise.sourceforge.net/os'
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:schemaLocation='http://moise.sourceforge.net/os
+                        http://moise.sourceforge.net/xml/os.xsd' >
+
+<structural-specification>
+
+<role-definitions>
+	<role id="r_manager"/>
+    <role id="r_farmer"/>
+    <role id="r_consumer"/>
+</role-definitions>
+
+<group-specification id="coffersGroup">
+    <roles>
+        <role id="r_manager" min="1" max="1"/>
+        <role id="r_farmer" min="1" max="1"/>
+        <role id="r_consumer" min="3" max="5"/>
+    </roles>
+</group-specification>
+</structural-specification>
+
+<functional-specification>
+    <scheme id="schemeSell">
+        <goal id="sellCoffee">
+            <plan operator="sequence">
+                <goal id="announce"    ttf="1 minutes" ds="announce the coffee!"/>
+                <goal id="negotiate"/>
+                <goal id="sell"/>
+            </plan>
+        </goal>        
+
+        <mission id="m_announce" min="1" max="1">
+            <goal id="announce"/>            
+        </mission>
+        
+        <mission id="m_negotiate" min="1" max="10">
+            <goal id="negotiate"/>
+            <goal id="sell"/>               
+        </mission>        
+    </scheme>
+    
+</functional-specification>
+
+<normative-specification>
+    <norm id="n_announce" type="obligation" role="r_manager" mission="m_announce"/>
+    <norm id="n_negotiate" type="permission" role="r_farmer" mission="m_negotiate"/>
+    
+</normative-specification>
+
+</organisational-specification>
